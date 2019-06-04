@@ -16,13 +16,30 @@ $(document).ready(function(){
         var vendite_x_mese = {};
 
         for (var i = 0; i < dato.length; i++) {
-          //console.log(dato[i]);
+          console.log(dato[i]);
+
           var data_corrente = dato[i].date;
           var quantita_corrente = dato[i].amount;
           //console.log(quantita_corrente);
           var data_corrente_modif = data_corrente.slice(3, 5);
           //console.log(data_corrente_modif);
           var mesi_trovati = Object.keys(vendite_x_mese);
+
+          // //se metto parseInt
+          // function zero_giorno (mes){
+          //   if (mes <10){
+          //     return '0' + mes
+          //   } else {
+          //     return mes
+          //   }
+          //   return mes;
+          // }
+          // var formato_mesi = zero_giorno (data_corrente_modif);
+          // //console.log(days);
+          // //console.log(zero_giorno (j));
+          // var data_modif =  formato_mesi;
+          // //console.log(data_modif);
+
 
           if (!mesi_trovati.includes(data_corrente_modif)) {
             //allora inizializzo il valore corrente ad 1 e lo assegno alla propietà giusta
@@ -32,24 +49,38 @@ $(document).ready(function(){
             vendite_x_mese[data_corrente_modif] += quantita_corrente;
           }
           //console.log(vendite_x_mese);
+
         //fine for
         }
-        // for (var field in vendite) {
-        //   var chiave = field;
-        //   console.log(chiave);
-        // }
-        var assex = Object.keys(vendite_x_mese);
+
+        var no_stringa = {};
+        for (var field in vendite_x_mese) {
+          console.log(field);
+          var pp = parseInt(field);
+          console.log(pp);
+          no_stringa[pp] = vendite_x_mese[field]
+          console.log(no_stringa);
+        }
+
+
+        var ordinato ={};
+        Object.keys(no_stringa).sort().forEach(function(key){
+          ordinato[key] = no_stringa[key];
+        })
+        console.log(ordinato);
+
+        var assex = Object.keys(ordinato);
         console.log(assex);
         //salvo i dati in un array
-        var assey = Object.values(vendite_x_mese);
+        var assey = Object.values(ordinato);
         console.log(assey);
 
         ogni_mese = [];
         for (var i = 0; i < assex.length; i++) {
           var assex_mese = moment([2017, 0, 31]).month(assex[i]-1).format('MMMM');
-          console.log(assex_mese);
+          //console.log(assex_mese);
           ogni_mese.push(assex_mese);
-          console.log(ogni_mese);
+          //console.log(ogni_mese);
         }
 
         //grafico 1
