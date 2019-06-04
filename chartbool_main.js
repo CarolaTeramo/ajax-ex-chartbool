@@ -2,8 +2,6 @@ $(document).ready(function(){
 
   var url_base = 'http://157.230.17.132:4022/sales';
 
-  console.log(moment([2012, 0, 31]).month(1).format("DD-MM-YYYY"));
-
   stampa_get_ajax();
 
   function stampa_get_ajax (){
@@ -15,19 +13,16 @@ $(document).ready(function(){
       'success': function(dato){
         //console.log(dato);
 
-        var vendite = {
+        var vendite = {};
 
-        };
-
-        for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < 10; i++) {
           console.log(dato[i]);
           var data_corrente = dato[i].date;
           var quantita_corrente = dato[i].amount;
-          console.log(quantita_corrente);
+          //console.log(quantita_corrente);
           var data_corrente_modif = data_corrente.slice(3, 5);
           //console.log(data_corrente_modif);
           var mesi_trovati = Object.keys(vendite);
-          var x =0;
 
           if (!mesi_trovati.includes(data_corrente_modif)) {
             //allora inizializzo il valore dello sport corrente ad 1 e lo assegno alla propietà giusta
@@ -36,7 +31,7 @@ $(document).ready(function(){
             //altrimenti incremento di 1
             vendite[data_corrente_modif] += quantita_corrente;
           }
-          console.log(vendite);
+          //console.log(vendite);
         }
         var assex = Object.keys(vendite);
         console.log(assex);
