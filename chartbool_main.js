@@ -23,7 +23,7 @@ $(document).ready(function(){
         var vendite_x_mese = {};
 
         for (var i = 0; i < dato.length; i++) {
-          console.log(dato[i]);
+          //console.log(dato[i]);
 
           var data_corrente = dato[i].date;
           var quantita_corrente = dato[i].amount;
@@ -75,13 +75,22 @@ $(document).ready(function(){
         Object.keys(no_stringa).sort().forEach(function(key){
           ordinato[key] = no_stringa[key];
         })
-        //console.log(ordinato);
+        console.log(ordinato);
 
         var assex = Object.keys(ordinato);
         //console.log(assex);
         //salvo i dati in un array
         var assey = Object.values(ordinato);
-        //console.log(assey);
+        console.log(assey);
+
+        //per il trimestre
+        var quarter = [];
+        var primo_trimestre = assey[0]+ assey[1]+ assey[2];
+        var secondo_trimestre = assey[3]+ assey[4]+ assey[5];
+        var terzo_trimestre = assey[6]+ assey[7]+ assey[8];
+        var quarto_trimestre = assey[9]+ assey[10]+ assey[11];
+        quarter.push(primo_trimestre, secondo_trimestre, terzo_trimestre, quarto_trimestre)
+        console.log(quarter);
 
         ogni_mese = [];
         for (var i = 0; i < assex.length; i++) {
@@ -134,6 +143,46 @@ $(document).ready(function(){
             }
         });
         //fine grafico 1
+
+        // grafico 1 bis
+
+        var ctx3 = document.getElementById('myChart3').getContext('2d');
+
+        var myChart3 = new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [{
+                    label: 'Fatturato mensile',
+                    data: quarter,
+                    backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                    ],
+                    borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }
+              ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        //fine grafico 1 bis
+
 
 
         //ciclo per SECONDO grafico
