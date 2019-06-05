@@ -18,12 +18,31 @@
 }
 .seleziona{
   width: 100%;
+  margin-bottom: 200px;
 }
 .seleziono_mese, .seleziono_venditore{
   width: 100px;
   margin-right: 6px;
+  height: 25px;
+  /* -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-border-radius: 0px;
+  background-image: url("https://image.flaticon.com/icons/svg/60/60781.svg");
+  background-position: 99% 50%;
+  background-repeat: no-repeat;
+  background-size: 10px;
+  border: 0;
+  outline: 1px solid #CCC;
+  background-color: white;
+  text-align-last:right;
+  padding-right: 30px;
+  direction: rtl; */
 }
 .bt_modifica, .input_modifica{
   border-radius: 5px;
   margin-left: 5px;
+}
+option{
+  text-align: center;
+
 }
