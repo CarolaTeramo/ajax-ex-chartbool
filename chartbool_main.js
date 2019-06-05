@@ -1,5 +1,12 @@
 $(document).ready(function(){
 
+  var template_html_select_one = $('#entry-template_select_one').html();
+  var template_function_select_one = Handlebars.compile(template_html_select_one);
+
+  var template_html_select_two = $('#entry-template_select_two').html();
+  var template_function_select_two = Handlebars.compile(template_html_select_two);
+
+
   var url_base = 'http://157.230.17.132:4022/sales';
 
   stampa_get_ajax();
@@ -53,13 +60,14 @@ $(document).ready(function(){
         //fine for
         }
 
+
         var no_stringa = {};
         for (var field in vendite_x_mese) {
-          console.log(field);
+          //console.log(field);
           var pp = parseInt(field);
-          console.log(pp);
+          //console.log(pp);
           no_stringa[pp] = vendite_x_mese[field]
-          console.log(no_stringa);
+          //console.log(no_stringa);
         }
 
 
@@ -67,13 +75,13 @@ $(document).ready(function(){
         Object.keys(no_stringa).sort().forEach(function(key){
           ordinato[key] = no_stringa[key];
         })
-        console.log(ordinato);
+        //console.log(ordinato);
 
         var assex = Object.keys(ordinato);
-        console.log(assex);
+        //console.log(assex);
         //salvo i dati in un array
         var assey = Object.values(ordinato);
-        console.log(assey);
+        //console.log(assey);
 
         ogni_mese = [];
         for (var i = 0; i < assex.length; i++) {
@@ -82,6 +90,18 @@ $(document).ready(function(){
           ogni_mese.push(assex_mese);
           //console.log(ogni_mese);
         }
+
+        for (var i = 0; i < ogni_mese.length; i++) {
+          var variabile_hldbar_one = {
+            'mese_vendita': ogni_mese[i],
+          };
+          var html_finale_select_one = template_function_select_one(variabile_hldbar_one);
+          // appendo questo var all id che è nell'html
+          $('.seleziono_mese').append(html_finale_select_one);
+
+        }
+
+
 
         //grafico 1
         var ctx1 = document.getElementById('myChart1').getContext('2d');
@@ -138,12 +158,20 @@ $(document).ready(function(){
         }
 
         var asse_x = Object.keys(vendite_x_venditore);
-        //console.log(assex);
+        //console.log(asse_x);
         //salvo i dati in un array
         var asse_y = Object.values(vendite_x_venditore);
-        //console.log(assey);
+        //console.log(asse_y);
 
+        for (var i = 0; i < asse_x.length; i++) {
+          var variabile_hldbar_two = {
+            'nome_venditore': asse_x[i],
+          };
+          var html_finale_select_two = template_function_select_two(variabile_hldbar_two);
+          // appendo questo var all id che è nell'html
+          $('.seleziono_venditore').append(html_finale_select_two);
 
+        }
         //grafico 2
         var ctx2 = document.getElementById('myChart2').getContext('2d');
 
@@ -179,18 +207,73 @@ $(document).ready(function(){
                     }]
                 }
             }
+        //fine grafico 2
         });
 
 
 
-
+      // fine success
       },
+
       'error': function(){
         alert('no')
       }
     });
   //fine funzione stampa
   }
+
+  $('.bt_modifica').click(function(){
+    //leggi input
+    var valore_inserito = $('.input_modifica').val();
+    var valore_inserito_int = parseInt(valore_inserito);
+    console.log(valore_inserito_int);
+    //azzera input
+    $('.input_modifica').val('');
+    //prendo valore selezione tendina
+    var nome_scelto = $('.seleziono_venditore').val();
+    var mese_scelto = $('.seleziono_mese').val();
+    var mese_scelto_format = moment([2017, 0, 31]).month(mese_scelto).format("DD/MM/YYYY");
+    console.log(mese_scelto_format);
+
+    // //altra chiamata per inserire valore input
+    var dato_ajax_post = {
+      'salesman': nome_scelto,
+      'amount': valore_inserito_int,
+      'date': mese_scelto_format,
+    }
+    //recupero valore inserito e ristampo tutto
+
+
+    $.ajax({
+      'url': url_base,
+      'method': 'POST',
+      'contentType': 'application/json',
+      'data' : JSON.stringify(dato_ajax_post),
+      'success': function(dato_post){
+        console.log(dato_post);
+        stampa_get_ajax();
+      },
+      'error': function(){
+        alert('no')
+      }
+    });
+
+  //fine click
+  });
+
+  //chiamata ajax per cancellare
+
+  // $.ajax({
+  //   'url': url_base + '/' +,
+  //   'method': 'DELETE',
+  //   'success': function(dato_delete){
+  //     console.log(dato_delete);
+  //     //stampa_get_ajax();
+  //   },
+  //   'error': function(){
+  //     alert('no')
+  //   }
+  // });
 
 //fine document ready
 });

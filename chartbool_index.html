@@ -21,10 +21,31 @@
 
     <div class="container">
 
-      <canvas class="grafico1" id="myChart1" width="400" height="400"></canvas>
-      <canvas class="grafico2" id="myChart2" width="400" height="400"></canvas>
+      <div class="grafici">
+        <canvas class="grafico1" id="myChart1" width="400" height="400"></canvas>
+        <canvas class="grafico2" id="myChart2" width="400" height="400"></canvas>
+      </div>
 
+      <div class="seleziona">
+        <select class="seleziono_venditore" name="">
+
+        </select>
+        <select class="seleziono_mese" name="">
+
+        </select>
+        <input class="input_modifica" type="text" name="" value="" placeholder="Inserici la vendita">
+        <button class="bt_modifica" type="button" name="button">Inserisci</button>
+      </div>
     </div>
+
+
+    <!-- se uso handlebars -->
+    <script id="entry-template_select_one" type="text/x-handlebars-template">
+      <option value="{{ mese_vendita }}">{{ mese_vendita }}</option>
+    </script>
+    <script id="entry-template_select_two" type="text/x-handlebars-template">
+      <option value="{{ nome_venditore }}">{{ nome_venditore }}</option>
+    </script>
 
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>

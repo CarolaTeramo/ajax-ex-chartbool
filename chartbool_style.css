@@ -2,8 +2,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   width: 40%;
+}
+.grafici{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
 }
 .grafico1, .grafico2{
   margin: 30px;
+}
+.seleziona{
+  width: 100%;
+}
+.seleziono_mese, .seleziono_venditore{
+  width: 100px;
+  margin-right: 6px;
+}
+.bt_modifica, .input_modifica{
+  border-radius: 5px;
+  margin-left: 5px;
 }
