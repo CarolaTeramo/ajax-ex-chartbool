@@ -291,17 +291,12 @@ $(document).ready(function(){
       'date': mese_scelto_format,
     }
 
-    function valida_dati_inseriti (nome_scelto, mese_scelto, valore_inserito){
-      if (nome_scelto.length == 0 || mese_scelto.length == 0 || isNaN(valore_inserito) || valore_inserito<= 0) {
-        return false;
-      }
-      return false;
-    }
+    console.log(nome_scelto, mese_scelto_format, valore_inserito);
+    console.log(nome_scelto.length);
 
-    var controllo = valida_dati_inseriti (nome_scelto, mese_scelto, valore_inserito);
-    if (controllo == 'true') {
-      // al posto di JSON.stringify avrei potuto mettere
-      //parseInt nella chiamata GET nella lettura di dato[i].amount
+    if (nome_scelto.length == 0 || mese_scelto_format.length == 0 || isNaN(valore_inserito_int) || valore_inserito_int<= 0) {
+      alert('Dati non conformi');
+    } else {
       $.ajax({
         'url': url_base,
         'method': 'POST',
@@ -316,11 +311,44 @@ $(document).ready(function(){
         }
       //fine ajax post
       });
-
-
-    } else {
-      alert('Valori inseriti non conformi')
     }
+
+    // function valida_dati_inseriti(nome_scelto){
+    //   if(nome_scelto.length == 0) {
+    //     return false;
+    //   }
+    //   return false;
+    // }
+    //
+    // //|| mese_scelto_format.length == 0 || isNaN(valore_inserito_int) || valore_inserito_int<= 0
+    //
+    // var controllo = valida_dati_inseriti(nome_scelto);
+    // console.log(controllo);
+
+    // if (controllo == 'true') {
+    //   // al posto di JSON.stringify avrei potuto mettere
+    //   //parseInt nella chiamata GET nella lettura di dato[i].amount
+    //   $.ajax({
+    //     'url': url_base,
+    //     'method': 'POST',
+    //     'contentType': 'application/json',
+    //     'data' : JSON.stringify(dato_ajax_post),
+    //     'success': function(dato_post){
+    //       console.log(dato_post);
+    //       stampa_get_ajax();
+    //     },
+    //     'error': function(){
+    //       alert('no')
+    //     }
+    //   //fine ajax post
+    //   });
+    //
+    //
+    // }
+
+    //else {
+    //   alert('Valori inseriti non conformi')
+    // }
 
     //recupero valore inserito e ristampo tutto
 
